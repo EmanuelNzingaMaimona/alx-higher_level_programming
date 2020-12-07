@@ -2,4 +2,4 @@
 ***
 Repository created as a container of ALX exercises
 **
-> _Emanuel Nzinga Maimona_
+> __Emanuel Nzinga Maimona__
