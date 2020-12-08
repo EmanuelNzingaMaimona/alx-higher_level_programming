@@ -10,7 +10,7 @@
 
 int check_cycle(listint_t *list)
 {
-	listint_t *tort = list, *doub = list;
+	listint_t *reg = list, *doub = list;
 
 	if (list == NULL)
 		return (0);
