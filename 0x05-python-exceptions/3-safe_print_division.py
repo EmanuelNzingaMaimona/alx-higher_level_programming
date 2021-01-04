@@ -3,8 +3,8 @@ def safe_print_division(a, b):
     r = 0
     try:
         r = a / b
-    except:
+    except Div:
         r = None
     finally:
         print("Inside result:", r)
-    return r
+        return r
