@@ -6,10 +6,10 @@ Usage
 ======
 
 Import the function:
-    >>> BaseGeometry = __import('7-base_geometry').BaseGeometry
+     >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 Set bg equal to BaseGeometry():
-   >>> bg = BaseGeometry()
+     >>> bg = BaseGeometry()
 
 Test for type:
      >>> type(bg) is BaseGeometry
@@ -37,9 +37,9 @@ Test if name is integer:
 
 Test if name is string:
      >>> try:
-     ... bg.integer_validator("name", "Thomas")
+     ...     bg.integer_validator("name", "Thomas")
      ... except Exception as e:
-     ... print("[{}] {}".format(e.__class__.__name__, e))
+     ...     print("[{}] {}".format(e.__class__.__name__, e))
      [TypeError] name must be an integer
 
 Test if age is 0:
