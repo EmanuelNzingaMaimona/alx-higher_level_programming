@@ -82,15 +82,3 @@ If a list is already ordered:
   >>> my_list.append(5)
   >>> my_list.print_sorted()
   [1, 2, 3, 4, 5]
-
-Test with string:
-  >>> string = MyList()
-  >>> string.append('Hello')
-  >>> string.append('World')
-  >>> string.append(2)
-  >>> string.append(3)
-  >>> print(string)
-  ['Hello', 'World', 2, 3]
-  >>> string.print_sorted()
-  Traceback (most recent call
-  TypeError: unorderable types: int() < str()
