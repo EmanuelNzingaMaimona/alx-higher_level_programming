@@ -1,26 +1,31 @@
 #!/usr/bin/python3
-"""Module for number_of_lines"""
-
-
-def number_of_lines(filename=""):
-    """Returns number of lines in a text file"""
-    count = 0
-    with open(filename, 'r') as f:
-        for line in f:
-            count += 1
-        return (count)
+# 2-read_lines.py
+# Brennan D Baraban <375@holbertonschool.com>
+"""Defines a text file-reading function."""
 
 
 def read_lines(filename="", nb_lines=0):
-    """Reads n lines of a text file and prints to stdout"""
-    line_count = 0
-    line_number = number_of_lines(filename)
-    with open(filename, 'r') as f:
-        if nb_lines <= 0 or nb_lines >= line_number:
-            print(f.read(), end='')
+    """Print a given number of lines from a UTF8 text file to stdout.
+
+    Args:
+        filename (str): The name of the file.
+        nb_lines (int): The number of lines to read from the file.
+    """
+    with open(filename, encoding="utf-8") as f:
+        if nb_lines <= 0:
+            print(f.read(), end="")
+            return
+
+        lines = 0
+        for line in f:
+            lines += 1
+        f.seek(0)
+        if nb_lines >= lines:
+            print(f.read(), end="")
+            return
+
         else:
-            for line in f:
-                if line_count == nb_lines:
-                    break
-                line_count += 1
-                print(line, end='')
+            n = 0
+            while n < nb_lines:
+                print(f.readline(), end="")
+                n += 1
