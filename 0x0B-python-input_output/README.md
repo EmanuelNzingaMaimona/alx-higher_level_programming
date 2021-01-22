@@ -1,4 +1,4 @@
-# Python - Input/Output
+# Python - Inheritance
 ***
 Reading and Writing Files
 Predefined Clean-up Actions
