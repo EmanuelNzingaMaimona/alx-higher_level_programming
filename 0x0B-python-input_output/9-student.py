@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-
-"""Defines a class Student."""
+"""Module for Student class"""
 
 
 class Student:
-    """Represent a student."""
-
+    """Student class"""
     def __init__(self, first_name, last_name, age):
         """Initialize a new Student.
 
@@ -18,6 +16,7 @@ class Student:
         self.last_name = last_name
         self.age = age
 
+
     def to_json(self):
-        """Get a dictionary representation of the Student."""
+         """Get a dictionary representation of the Student."""
         return self.__dict__
