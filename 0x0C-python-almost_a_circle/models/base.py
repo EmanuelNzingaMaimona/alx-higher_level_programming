@@ -29,12 +29,8 @@ class Base:
         """ returns the JSON string representation of
 
         Args:
-            list_dictionaries (list): a list of dictionaries
-        Return:
-             If list_dictionaries is None or empty, return the string: "[]"
-             Otherwise, return the JSON string representation of
-             list_dictionaries
+            list_dictionaries (list): A list of dictionaries.
         """
         if list_dictionaries is None or list_dictionaries == []:
-            return []
+            return "[]"
         return json.dumps(list_dictionaries)
