@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Module for Base Class"""
-
+import json
 
 class Base:
     """Represent the base model
@@ -22,3 +22,17 @@ class Base:
         else:
             Base.__nb_objects += 1
             self.id = Base.__nb_objects
+
+    def to_json_string(list_dictionaries):
+        """ returns the JSON string representation of
+
+        Args:
+            list_dictionaries (list): a list of dictionaries
+        Return:
+             If list_dictionaries is None or empty, return the string: "[]"
+             Otherwise, return the JSON string representation of
+             list_dictionaries
+        """
+        if list_dictionaries is None or list_dictionaries == []:
+            return []
+        return json.dumps(list_dictionaries)
