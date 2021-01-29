@@ -2,6 +2,7 @@
 """Module for Base Class"""
 import json
 
+
 class Base:
     """Represent the base model
 
