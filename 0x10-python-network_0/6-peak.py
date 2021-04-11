@@ -1,22 +1,23 @@
 #!/usr/bin/python3
-# Module that finds the peak of an unsorted list of ints
+"""Defines a peak-finding algorithm."""
 
 
 def find_peak(list_of_integers):
-    """ finds the peak of an unsorted list of ints """
-    if not list_of_integers:
+    """Return a peak in a list of unsorted integers."""
+    if list_of_integers == []:
         return None
-    return rfind(list_of_integers, 0, len(list_of_integers) - 1,
-                 len(list_of_integers))
 
+    size = len(list_of_integers)
+    if size == 1:
+        return list_of_integers[0]
+    elif size == 2:
+        return max(list_of_integers)
 
-def rfind(ilist, start, end, length):
-    """ recursive function to find peak """
-    mid = start + (end - start) // 2
-    if (mid == 0 or ilist[mid - 1] <= ilist[mid]) and\
-       (mid == length - 1 or ilist[mid + 1] <= ilist[mid]):
-        return ilist[mid]
-    elif (mid > 0 and ilist[mid - 1] > ilist[mid]):
-        return rfind(ilist, start, mid - 1, length)
+    mid = int(size / 2)
+    peak = list_of_integers[mid]
+    if peak > list_of_integers[mid - 1] and peak > list_of_integers[mid + 1]:
+        return peak
+    elif peak < list_of_integers[mid - 1]:
+        return find_peak(list_of_integers[:mid])
     else:
-        return rfind(ilist, mid + 1, end, length)
+        return find_peak(list_of_integers[mid + 1:])

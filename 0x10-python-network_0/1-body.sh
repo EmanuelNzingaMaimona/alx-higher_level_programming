@@ -1,3 +1,3 @@
 #!/bin/bash
-# get request to URL, displays body of response
+# Get the response body for a given URL for 200 status code responses.
 curl -sL "$1"
