@@ -1,10 +1,14 @@
 #!/usr/bin/python3
-# Module that displays value of variable X-Request-Id
-import requests
+"""Displays the X-Request-Id header variable of a request to a given URL.
+
+Usage: ./5-hbtn_header.py <URL>
+"""
 import sys
+import requests
 
 
 if __name__ == "__main__":
-    # displays value of variable X-Request-Id
-    r = requests.get(sys.argv[1])
-    print(r.headers.get('X-Request-Id'))
+    url = sys.argv[1]
+
+    r = requests.get(url)
+    print(r.headers.get("X-Request-Id"))

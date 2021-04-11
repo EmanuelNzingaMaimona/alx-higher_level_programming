@@ -1,29 +1,33 @@
 #!/usr/bin/python3
-# searches for Star Wars name with string and lists movies
-import requests
+"""Sends a search request for a given string to the Star Wars API.
+
+For each character matched, displays the associated list of movies.
+Mangages pagination to display all results.
+
+Usage: ./102-starwars.py <search string>
+  - The search request is sent to the Star Wars API search people endpoint.
+"""
 import sys
+import requests
 
 
 if __name__ == "__main__":
-    # seraches for Star Wars name with string and lists movies
-    name = sys.argv[1]
-    url = 'https://swapi.co/api/people/?search=' + name
-    r = requests.get(url)
-    json_r = r.json()
-    print("Number of results: {}".format(json_r.get('count')))
-    for n in json_r.get('results'):
-        print(n.get('name'))
-        films = n.get('films')
-        for t in range(len(films)):
-            _title = requests.get(films[t]).json()
-            print("\t{}".format(_title.get('title')))
-    while json_r.get('next'):
-        url = json_r.get('next')
-        r = requests.get(url)
-        json_r = r.json()
-        for n in json_r.get('results'):
-            print(n.get('name'))
-            films = n.get('films')
-            for t in range(len(films)):
-                _title = requests.get(films[t]).json()
-                print("\t{}".format(_title.get('title')))
+    url = "https://swapi.co/api/people"
+    params = {"search": sys.argv[1]}
+    results = requests.get(url, params=params).json()
+
+    count = results.get("count")
+    print("Number of results: {}".format(results.get("count")))
+
+    c = 0
+    while c < count:
+        for r in results.get("results"):
+            print(r.get("name"))
+            for link in r.get("films"):
+                film = requests.get(link).json()
+                print("\t{}".format(film.get("title")))
+            c += 1
+
+        next_page = results.get("next")
+        if next_page is not None:
+            results = requests.get(next_page).json()
