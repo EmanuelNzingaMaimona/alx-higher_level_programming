@@ -1,41 +1,17 @@
 #!/usr/bin/python3
-# script that lists all cities from the database hbtn_0e_4_usa
-
-
-def getStates(userName, passWord, dbName):
-    """ Accesses database hbtn_0e_4_usa and grabs cities, then puts in
-    ascending order.
-    ARGS:
-        userName: the username
-        passWord: the password
-        dbName: the name of the database to access
-    """
-
-    import MySQLdb
-
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=userName,
-        passwd=passWord,
-        db=dbName,
-        charset="utf8"
-    )
-
-    cur = db.cursor()
-    cur.execute("SELECT cities.id, cities.name, states.name "
-                "FROM cities LEFT JOIN states "
-                "ON cities.state_id = states.id "
-                "ORDER BY cities.id ASC;")
-    query_rows = cur.fetchall()
-
-    for row in query_rows:
-        print(row)
-    cur.close()
-    db.close()
+# Lists all cities of the database hbtn_0e_4_usa, ordered by city id.
+# Usage: ./4-cities_by_state.py <mysql username> \
+#                               <mysql password> \
+#                               <database name>
+import sys
+import MySQLdb
 
 if __name__ == "__main__":
-    """ Take in arguments and passes to get states from db """
-    from sys import argv
-
-    getStates(argv[1], argv[2], argv[3])
+    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
+    c = db.cursor()
+    c.execute("SELECT `c`.`id`, `c`.`name`, `s`.`name` \
+                 FROM `cities` as `c` \
+                INNER JOIN `states` as `s` \
+                   ON `c`.`state_id` = `s`.`id` \
+                ORDER BY `c`.`id`")
+    [print(city) for city in c.fetchall()]
