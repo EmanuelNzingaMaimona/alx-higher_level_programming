@@ -1,40 +1,19 @@
 #!/usr/bin/python3
-#  takes in the name of a state as an argument and lists all cities
-# of that state, using the database hbtn_0e_4_usa
-
-
-def getStates(userName, passWord, dbName, stateName):
-    """ Accesses database hbtn_0e_0_usa and grabs states that begin with 'N'.
-    ARGS:
-        userName: the username
-        passWord: the password
-        dbName: the name of the database to access
-        stateName: the name of the state to check
-    """
-
-    import MySQLdb
-
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=userName,
-        passwd=passWord,
-        db=dbName,
-        charset="utf8"
-    )
-
-    cur = db.cursor()
-
-    cur.execute("SELECT cities.name FROM cities "
-                "JOIN states ON states.id = cities.state_id "
-                "WHERE states.name = %s;", (stateName,))
-    query_rows = cur.fetchall()
-    print(", ".join([i[0] for i in query_rows]))
-    cur.close()
-    db.close()
+# Displays all cities of a given state from the
+# states table of the database hbtn_0e_4_usa.
+# Safe from SQL injections.
+# Usage: ./5-filter_cities.py <mysql username> \
+#                             <mysql password> \
+#                             <database name> \
+#                             <state name searched>
+import sys
+import MySQLdb
 
 if __name__ == "__main__":
-    """ Take in arguments and passes to get states from db """
-    from sys import argv
-
-    getStates(argv[1], argv[2], argv[3], argv[4])
+    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
+    c = db.cursor()
+    c.execute("SELECT * FROM `cities` as `c` \
+                INNER JOIN `states` as `s` \
+                   ON `c`.`state_id` = `s`.`id` \
+                ORDER BY `c`.`id`")
+    print(", ".join([ct[2] for ct in c.fetchall() if ct[4] == sys.argv[4]]))
